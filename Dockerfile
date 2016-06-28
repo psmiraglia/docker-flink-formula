@@ -21,6 +21,9 @@ RUN cd /root \
     && echo "salt-call --local state.apply flink.java,flink.ssh,flink.user,flink.binaries,flink.taskmanager" >> .bash_history \
     && echo "salt-call --local state.apply flink.java,flink.ssh,flink.user,flink.binaries,flink.jobmanager" >> .bash_history
 
+# prepare demo
+RUN curl http://www.gutenberg.org/cache/epub/1128/pg1128.txt > /tmp/kinglear.txt
+
 # change working dir
 WORKDIR /root
 
