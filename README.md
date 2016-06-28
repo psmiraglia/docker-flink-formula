@@ -21,21 +21,25 @@ locally available.
 
         $ make
 
-2.  Execute the Master node
+2.  Run a Master node docker
 
         $ ./start-master.sh
+        root@flink-master:~#
 
-    Resulting Docker will use `flink-master` as hostname.
+3.  Run a Slave node dockers
 
-3.  Execute the Slave node(s)
+        $ ./start-slave.sh 1
+        root@flink-slave-1:~#
 
-        $ ./start-slave.sh <N>
+        $ ./start-slave.sh 2
+        root@flink-slave-2:~#
 
-    Resulting Docker will use `flink-slave-<N>` as hostname.
+        $ ./start-slave.sh 3
+        root@flink-slave-3:~#
 
 ## Take some notes
 
-In the `flink-master` Docker, run the following command
+In `flink-master` docker, run the following command
 
     $ ip addr show eth0
     ...
@@ -43,7 +47,7 @@ In the `flink-master` Docker, run the following command
     ...
 
 and take a note about the IP address. Do the same procedure in each
-`flink-slave-*` Docker
+`flink-slave-*` docker
 
     $ ip addr show eth0
     ...
@@ -90,11 +94,14 @@ information
 
 On the `flink-master` docker, execute
 
-    $ salt-call --local state.apply flink.java,flink.ssh,flink.user,flink.binaries,flink.jobmanage
+    $ salt-call --local state.apply flink.java,flink.ssh,flink.user,flink.binaries,flink.jobmanager
 
 On each `flink-slave-*` docker, execute
 
-    $ salt-call --local state.apply flink.java,flink.ssh,flink.user,flink.binaries,flink.taskmanage
+    $ salt-call --local state.apply flink.java,flink.ssh,flink.user,flink.binaries,flink.taskmanager
+
+The documentation about the `flink-formula` states can be found in the
+[GitHub repo](https://github.com/psmiraglia/flink-formula).
 
 ## Run the cluster
 
